@@ -1,0 +1,149 @@
+---
+title: "林华珍教授团队报告分析"
+author: "常佳琪 虞睿灵 董洁"
+date: "2020/4/13"
+output:
+  ioslides_presentation: 
+  widescreen: true
+  bigger: true
+mathjax: local
+pagemargins: 2.5
+fontsize: 12
+
+---
+## **展示内容**
+
+### 1.林华珍教授团队最新研究分享
+
+### 2.非参数核密度估计方法  
+
+### 3.R语言实操简介
+
+
+## **文章概述**  
+
+题目：《Trends in Transmissibility of 2019 Novel Coronavirus-infected Pneumonia in Wuhan and 29 Provinces in China》  
+
+&emsp;&emsp;&emsp;《中国武汉和29省的新冠肺炎传播趋势》
+
+作者：林华珍，刘伟，高宏，聂锦宇，范乔  
+
+* 数据  
+
+* 模型  
+
+* 结果
+  
+
+## **数据——符号表示**
+
+
+|  符号   |  含义 | 符号   |  含义 |
+|:----------:|:--------:|:----------:|:--------:|
+|k| 省份k|t| 第t天|
+|$Y_{kt}$| 第t天的累计确诊数|${\alpha}_k$|2020年1月20日的基准感染病例(1.20为基准病例) |
+|${TR}_k$| 从武汉出发的每日火车行驶时长|$W_{kt}$|潜在具有感染性的患病个体数量 |
+|${FL}_k$|从武汉出发的每日航班行驶时长|${\gamma}_{kt}$|传播率：d$W_{kt}$/$W_{k,t-1}$ |
+|${RM}_k$|由武汉延伸的高速公路里程|${\eta}_{kt}$|传播率的比率：${\gamma}_{kt}$/${\gamma}_{k,t-1}$ |
+|${MI}_k$|从武汉向外的人口迁移量 |m|潜伏期（天数） |
+
+## **数据——来源**
+
+* 新冠肺炎数据  
+
+  + 数据来源：国家和各省卫健委官方网站
+
+* 交通数据  
+
+  + 铁路数据：[高铁网车次查询](http://shike.gaotie.cn/)  
+
+  + 航空数据：[飞常准大数据平台](https://data.variflight.com/)  
+
+  + 公路数据：[汽车网汽车时刻查询](https://www.qichezhan.cn/)  
+
+  + 迁徙数据: [百度地图慧眼](http://qianxi.baidu.com/)
+
+注：每日旅行时间=不同交通工具每日旅游趟数 $\times$ 不同交通工具的旅行时间
+
+
+
+## **数据——描述统计**
+
+<div align=center>![图1：从武汉出发的每日火车行驶时长${TR}_k$](C:/Users/cbb/Desktop/picture/des1.png)
+
+
+## **数据——描述统计**
+<div align=center >![图2：武汉向外的人口迁移数${MI}_k$](C:/Users/cbb/Desktop/picture/des2.png)
+
+## **建模过程**
+
+假定每日新增病例数服从泊松分布  
+
+d$Y_{kt}$ = $Y_{kt}$ - $Y_{k，t-1}$ ~ Possion(${\gamma}_{kt}$$W_{k,t-1}$)  
+  
+接下来就需要关注${\gamma}_{kt}$和$W_{kt}$这两个参数  
+
+首先，关注${\gamma}_{kt}$。${\gamma}_{kt}$ = ${\eta}_{kt}$ $\times$ ${\gamma}_{k，t-1}$   &emsp;&emsp;${\eta}_{kt}$=${\eta}_{t}$
+  
+${\eta}_{kt}$可以看做是${\gamma}_{kt}$的导数，将它定义为t的任意函数，本文将用非参数逐点估计的方法将其估算出来
+
+## **建模过程**  
+  
+其次，关注$W_{kt}$  
+$$
+dW_{kt} = {\gamma}_{kt} \times W_{k，t-1} ， W_{kt} = W_{k，t-1} + dW_{kt}  
+$$
+经过链式计算后，可以得到  
+$$
+dW_{kt} = {\gamma}_{kt} \prod_{j=1}^{t-1} ({\gamma}_{k,j} +1)W_0 , W_{kt} =  \prod_{j=1}^{t-1} ({\gamma}_{k,j} +1)W_0  
+$$
+其中，$W_0$ = ${\alpha}_k$，${\alpha}_k$为1月20日基准病例  
+
+接下来，关注${\alpha}_k$，定义${\alpha}_k$是由武汉通过不同交通方式迁出到全国各地所决定，即  
+
+
+## **建模过程**  
+
+$$
+{\alpha}_k = {\beta}_1 \times {TR}_k + {\beta}_2 \times {TR}_k + {\beta}_3 \times {MI}_k  
+$$
+其中，${\beta}$ = (${\beta}_1$,${\beta}_2$,${\beta}_3$)'是待估参数
+
+进一步，完善模型  
+$$
+W_{kt} = \prod_{j=1}^{t-1}({\gamma}_{k,j} +1){\alpha}_k - \prod_{j=1}^{t-(m+1)}({\gamma}_{k,j} +1){\alpha}_k(t\gt m)  
+$$
+令${\gamma}_{1}$=(${\gamma}_{1}$,...,${\gamma}_{k1}$)' , $\delta$ = (${\gamma}_{1}$',a',${\beta}$')
+
+综上，由泊松分布的概率函数P(X=k)=$\frac {{\lambda}^k}{k!}$,k=0,1,...得到对数似然函数  
+
+
+## **建模过程**
+  
+接上，
+$$
+L(\delta) = \sum_{k=1}^K\sum_{t=1}^T{[dY_{kt}log({\lambda}_{kt}) - {\lambda}_{kt}}]+c  
+$$
+
+$$
+= \sum_{k=1}^K\sum_{t=1}^T(dY_{kt}log[{\gamma}_{kt}{X}_{k}^T{\beta}{ \prod_{j=1}^{t-1}({\gamma}_{k,j} +1)-\prod_{j=1}^{t-(m+1)}({\gamma}_{k,j} +1)}] \\- {\gamma}_{kt}{X}_{k}^T{\beta}{\prod_{j=1}^{t-1}({\gamma}_{k,j} +1)-\prod_{j=1}^{t-(m+1)}({\gamma}_{k,j} +1)})+c 
+$$
+
+
+## **结果展示**  
+
+<div align=center >![图3：各省传播率${\gamma}_k$](C:/Users/cbb/Desktop/picture/res1.png)
+
+## **结果展示**  
+
+<div align=center >![图4：1月20日全国基准病例${\alpha}_k$](C:/Users/cbb/Desktop/picture/res2.png)
+
+## **结果展示**  
+
+<div align=center >![图5：各省进入稳定期预测](C:/Users/cbb/Desktop/picture/res4.png)
+
+## **结果展示**  
+
+<center>表1：交通方式和人口迁移对基准感染病例的影响</cenetr>
+
+<div align=center >![](C:/Users/cbb/Desktop/picture/res3.png)
