@@ -18,6 +18,8 @@ fontsize: 12
 
 ### 3.R语言实操简介
 
+
+
 # 1.林华珍教授团队最新研究分享
 
 ## **文章概述**  
@@ -34,9 +36,7 @@ fontsize: 12
 
 * 结果
   
-
 ## **数据——符号表示**
-
 
 |  符号   |  含义 | 符号   |  含义 |
 |:----------:|:--------:|:----------:|:--------:|
@@ -65,15 +65,12 @@ fontsize: 12
 
 注：每日旅行时间=不同交通工具每日旅游趟数 $\times$ 不同交通工具的旅行时间
 
-
-
 ## **数据——描述统计**
 
-<div align=center>![图1：从武汉出发的每日火车行驶时长${TR}_k$](C:/Users/cbb/Desktop/picture/des1.png)
-
+<div align=center>![图1：从武汉出发的每日火车行驶时长${TR}_k$](./supplement/graph/des1.png)
 
 ## **数据——描述统计**
-<div align=center >![图2：武汉向外的人口迁移数${MI}_k$](C:/Users/cbb/Desktop/picture/des2.png)
+<div align=center >![图2：武汉向外的人口迁移数${MI}_k$](./supplement/graph/des2.png)
 
 ## **建模过程**
 
@@ -101,7 +98,6 @@ $$
 
 接下来，关注${\alpha}_k$，定义${\alpha}_k$是由武汉通过不同交通方式迁出到全国各地所决定，即  
 
-
 ## **建模过程**  
 
 $$
@@ -117,7 +113,6 @@ $$
 
 综上，由泊松分布的概率函数P(X=k)=$\frac {{\lambda}^k}{k!}$,k=0,1,...得到对数似然函数  
 
-
 ## **建模过程**
   
 接上，
@@ -129,24 +124,27 @@ $$
 = \sum_{k=1}^K\sum_{t=1}^T(dY_{kt}log[{\gamma}_{kt}{X}_{k}^T{\beta}{ \prod_{j=1}^{t-1}({\gamma}_{k,j} +1)-\prod_{j=1}^{t-(m+1)}({\gamma}_{k,j} +1)}] \\- {\gamma}_{kt}{X}_{k}^T{\beta}{\prod_{j=1}^{t-1}({\gamma}_{k,j} +1)-\prod_{j=1}^{t-(m+1)}({\gamma}_{k,j} +1)})+c 
 $$
 
+## **结果展示**  
+
+<div align=center >![图3：各省传播率${\gamma}_k$](./supplement/graph/res1.png)
 
 ## **结果展示**  
 
-<div align=center >![图3：各省传播率${\gamma}_k$](C:/Users/cbb/Desktop/picture/res1.png)
+<div align=center >![图4：1月20日全国基准病例${\alpha}_k$](./supplement/graph/res2.png)
 
 ## **结果展示**  
 
-<div align=center >![图4：1月20日全国基准病例${\alpha}_k$](C:/Users/cbb/Desktop/picture/res2.png)
-
-## **结果展示**  
-
-<div align=center >![图5：各省进入稳定期预测](C:/Users/cbb/Desktop/picture/res4.png)
+<div align=center >![图5：各省进入稳定期预测](./supplement/graph/res4.png)
 
 ## **结果展示**  
 
 <center>表1：交通方式和人口迁移对基准感染病例的影响</cenetr>
 
-<div align=center >![](C:/Users/cbb/Desktop/picture/res3.png)
+<div align=center >![](./supplement/graph/res3.png)
+
+
+
+# 2.非参数核密度估计方法
 
 ## **参数估计 VS 非参数估计**
 
@@ -162,7 +160,7 @@ $$
 其中，直方图不能得到光滑密度估计的根本原因是由于它使用了示性函数作为权重函数，并且它的各组之间不允许交叠。  
 <br>
 
-<div align=center><img width='800' height='200'src='./graph/histogram.png'/></div>
+<div align=center><img width='800' height='200'src='./supplement/graph/histogram.png'/></div>
 
 ## **核函数**
 为了让核密度估计得到光滑的密度函数，我们需要让它使用更一般的权重函数，并允许各组交叠。其中，权重函数就是“核函数”。  
@@ -170,13 +168,13 @@ $$
 在核密度估计中，核函数通常选择平滑的峰值函数来拟合远小近大的权重规律，且要求选择函数满足下面两个性质：  
 1. 归一化：曲线下方面积为1；  
 2.对称性：函数连续且关于原点对称。  
-<div align=center><img width='600' height='300'src='./graph/kernel-function.png'/></div>
+<div align=center><img width='600' height='300'src='./supplement/graph/kernel-function.png'/></div>
 
 ## **核密度估计**
 所谓核密度估计，就是采用平滑的峰值函数(“核函数”)来拟合观察到的数据点，从而对真实的概率分布曲线进行模拟。
 <br>
 
-<div align=center><img width='600' height='400'src='./graph/kernel_density.png'/></div>
+<div align=center><img width='600' height='400'src='./supplement/graph/kernel_density.png'/></div>
 
 ## **带宽**
 核密度估计无法消除直方图中“密度函数受子区间宽度影响”的影响。
@@ -189,13 +187,13 @@ $$
 ## **带宽对密度函数的影响**
 
 <center class='half'>
-  <img width='400' height='250'src='./graph/image0.png'/></div>
-  <img width='400' height='250'src='./graph/image1.png'/></div>
+  <img width='400' height='250'src='./supplement/graph/image0.png'/></div>
+  <img width='400' height='250'src='./supplement/graph/image1.png'/></div>
 </center>
 <br>
 <center class='half'>
-  <img width='400' height='250'src='./graph/image2.png'/></div>
-  <img width='400' height='250'src='./graph/image3.png'/></div>
+  <img width='400' height='250'src='./supplement/graph/image2.png'/></div>
+  <img width='400' height='250'src='./supplement/graph/image3.png'/></div>
 </center>
 
 ## **最优带宽**
@@ -221,22 +219,26 @@ $$
 
 ## **非参数核回归**
 
-<div align=center><img width='800' height='500'src='./graph/regression.png'/></div>
+<div align=center><img width='800' height='500'src='./supplement/graph/regression.png'/></div>
 
+
+
+# 3.R语言实操简介
 
 ## **核密度估计**
 
 ```{r ,eval=FALSE}
 set.seed(10)  
 dat<-c(rgamma(300,shape=2,scale=2),rgamma(100,shape=10,scale=2))  
-plot(density(dat,kernel = "gaussian" ), ylim=c(0,0.2),pin=c(2,2))  
+plot(density(dat,kernel = "gaussian" ), ylim=c(0,0.2))  
 dfn<-function(x,a,alpha1,alpha2,theta){  
   a*dgamma(x,shape=alpha1,scale=theta)+(1-a)*dgamma(x,shape=alpha2,scale=theta)}  
-curve(dfn(x,0.75,2,10,2),add=T,col="red",)  
+curve(dfn(x,0.75,2,10,2),add=T,col="red")  
 
 ```  
-<div align=center><img width='600' height='300'src='./graph/Rplot01.png'/></div>
-## **窗宽的选择**
+<div align=center><img width='600' height='300'src='./supplement/graph/Rplot01.png'/></div>
+
+## **带宽的选择**
 ```{r ,eval=FALSE}
 dfn1<-function(x){  
   0.5*dnorm(x,3,1)+0.5*dnorm(x,-3,1)}  
@@ -246,13 +248,12 @@ data<-c(rnorm(200,3,1),rnorm(200,-3,1))
 plot(density(data,bw=8))  
 plot(density(data,bw=0.8))  
 plot(density(data,bw=0.08))
-par(mfrow=c(1,1))
-plot(density(data,bw=0.9685))  
-plot(density(data,bw=1.1210))  
 
 ```
-## **窗宽的选择**
-<div align=center><img width='800' height='500'src='./graph/Rplot02.png'/></div>
+
+
+## **带宽的选择**
+<div align=center><img width='800' height='500'src='./supplement/graph/Rplot02.png'/></div>
 
 ## **武汉人员迁徙地图**
 ```{r ,eval=FALSE}
@@ -260,7 +261,7 @@ library(usethis)
 library(devtools)
 library(REmap)
 options(remap.ak = "9H3FoljQv8CGKeWWrxtFVNEGCTd8Ui8z" )   
-destin <- read.csv(file="destination.csv",header=F)
+destin <- read.csv(file="./supplement/destination.csv",header=F)
 names(destin) <- c("names","values")
 markLine_data <- data.frame(origin=rep("武汉",10),
                             destination=destin[1:10,1],
@@ -270,6 +271,7 @@ markPoint_data <- markLine_data[markLine_data!=""]
 markPoint_data1 <- markPoint_data[which(markPoint_data!="武汉"&markPoint_data!="#fff")]
 
 ```
+
 ## **武汉人员迁徙地图**
 ```{r ,eval=FALSE}
 remapC(destin, title="2020年1月10日至2020年1月24日 武汉人口迁出图", subtitle="前10目标省份",
@@ -278,7 +280,7 @@ remapC(destin, title="2020年1月10日至2020年1月24日 武汉人口迁出图"
                        titleColor = "#FFFFFF",  #标题颜色
                        pointShow = T,  #是否展示各省会城市所在点，设置为True时展示
                       ),
-       color=c('#CD0000','#FFEC8B'), #颜色渐变方案，对应每个地区不同的value  初始颜色 无色名  
+       color=c('#CD0000','#FFEC8B'), #颜色渐变方案 
        markLineData=markLine_data,   
        markLineTheme=markLineControl(color="white", 
                                      lineWidth=2, #线条宽度
@@ -292,10 +294,11 @@ remapC(destin, title="2020年1月10日至2020年1月24日 武汉人口迁出图"
                                       )  #对图中点的样式进行调整
 )
 ```
+
 ## **全国疫情地图**
 ```{r ,eval=FALSE}
 library(REmap)
-data <- read.csv(file="data.csv",header=F)
+data <- read.csv(file="./supplement/data.csv",header=F)
 names(data) <- c("names","values")
 remapC(data,
        maptype = 'china',
