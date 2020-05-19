@@ -230,15 +230,15 @@ $$
 ```{r ,eval=FALSE}
 set.seed(10)  
 dat<-c(rgamma(300,shape=2,scale=2),rgamma(100,shape=10,scale=2))  
-plot(density(dat,kernel = "gaussian" ), ylim=c(0,0.2),pin=c(2,2))  
+plot(density(dat,kernel = "gaussian" ), ylim=c(0,0.2))  
 dfn<-function(x,a,alpha1,alpha2,theta){  
   a*dgamma(x,shape=alpha1,scale=theta)+(1-a)*dgamma(x,shape=alpha2,scale=theta)}  
-curve(dfn(x,0.75,2,10,2),add=T,col="red",)  
+curve(dfn(x,0.75,2,10,2),add=T,col="red")  
 
 ```  
 <div align=center><img width='600' height='300'src='./supplement/graph/Rplot01.png'/></div>
 
-## **窗宽的选择**
+## **带宽的选择**
 ```{r ,eval=FALSE}
 dfn1<-function(x){  
   0.5*dnorm(x,3,1)+0.5*dnorm(x,-3,1)}  
@@ -248,14 +248,11 @@ data<-c(rnorm(200,3,1),rnorm(200,-3,1))
 plot(density(data,bw=8))  
 plot(density(data,bw=0.8))  
 plot(density(data,bw=0.08))
-par(mfrow=c(1,1))
-plot(density(data,bw=0.9685))  
-plot(density(data,bw=1.1210))  
 
 ```
 
 
-## **窗宽的选择**
+## **带宽的选择**
 <div align=center><img width='800' height='500'src='./supplement/graph/Rplot02.png'/></div>
 
 ## **武汉人员迁徙地图**
@@ -283,7 +280,7 @@ remapC(destin, title="2020年1月10日至2020年1月24日 武汉人口迁出图"
                        titleColor = "#FFFFFF",  #标题颜色
                        pointShow = T,  #是否展示各省会城市所在点，设置为True时展示
                       ),
-       color=c('#CD0000','#FFEC8B'), #颜色渐变方案，对应每个地区不同的value  初始颜色 无色名  
+       color=c('#CD0000','#FFEC8B'), #颜色渐变方案 
        markLineData=markLine_data,   
        markLineTheme=markLineControl(color="white", 
                                      lineWidth=2, #线条宽度
